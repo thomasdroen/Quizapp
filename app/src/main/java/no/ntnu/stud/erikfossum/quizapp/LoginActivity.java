@@ -55,6 +55,28 @@ public class LoginActivity extends AppCompatActivity {
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_login);
+
+
+        Button button= (Button) findViewById(R.id.logInButton);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));;
+
+            }
+        });
+        Button button2= (Button) findViewById(R.id.createAccount);
+        button2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));;
+
+            }
+        });
         }
+
+
     }
 
