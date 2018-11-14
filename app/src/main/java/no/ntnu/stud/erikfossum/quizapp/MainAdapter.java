@@ -3,6 +3,7 @@ package no.ntnu.stud.erikfossum.quizapp;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,7 +64,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         final String name = values.get(position);
@@ -71,7 +72,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.txtHeader.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                remove(position);
+
+                Intent intent = new Intent(v.getContext(),QuizActivity.class);
+                intent.putExtra("category", holder.txtHeader.getText().toString());
+                v.getContext().startActivity(intent);
+
             }
         });
 
