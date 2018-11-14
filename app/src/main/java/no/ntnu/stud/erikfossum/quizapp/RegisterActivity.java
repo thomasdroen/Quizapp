@@ -1,5 +1,7 @@
 package no.ntnu.stud.erikfossum.quizapp;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
@@ -28,8 +39,15 @@ public class RegisterActivity extends AppCompatActivity {
 
                 final EditText password = (EditText) findViewById(R.id.newPassword);
                 final EditText password2 = (EditText) findViewById(R.id.confirmNewPassword);
+                final EditText userid = (EditText) findViewById(R.id.usernameID);
                 if (password.getText().toString().equals(password2.getText().toString())){
-                    sendPost();
+
+                    handler.post(runnableCode);
+                    Toast toast = Toast.makeText(RegisterActivity.this,"User "
+                            + userid.getText().toString() + " was created",Toast.LENGTH_LONG);
+                    toast.show();
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+
                 }else {
                     Toast toast = Toast.makeText(RegisterActivity.this,"The passwords do not correspond",Toast.LENGTH_LONG);
                     toast.show();
@@ -38,45 +56,50 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-    public void sendPost() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL("http://10.0.2.2:8080/QuizServer/api/auth/create");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-                    conn.setRequestProperty("Accept","application/json");
-                    conn.setDoOutput(true);
-                    conn.setDoInput(true);
 
-                    final EditText username = (EditText) findViewById(R.id.usernameID);
-                    final EditText password = (EditText) findViewById(R.id.newPassword);
-
-                    JSONObject jsonParam = new JSONObject();
-                    jsonParam.put("uid", username.getText().toString());
-                    jsonParam.put("pwd", password.getText().toString());
-
-                    Log.i("JSON", jsonParam.toString());
-                    DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                    //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
-                    os.writeBytes(jsonParam.toString());
-
-                    os.flush();
-                    os.close();
-
-                    Log.i("STATUS", String.valueOf(conn.getResponseCode()));
-
-                    Log.i("MSG" , conn.getResponseMessage());
-
-                    conn.disconnect();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    Handler handler = new Handler();
+    private RequestQueue queue;
+    private Runnable runnableCode = new Runnable() {
+        @Override
+        public void run() {
+            if(queue == null){
+                queue = Volley.newRequestQueue(RegisterActivity.this);
             }
-        });
+            final EditText password = (EditText) findViewById(R.id.newPassword);
+            final EditText userid = (EditText) findViewById(R.id.usernameID);
 
-        thread.start();
-    }
+            String url ="http://10.0.2.2:8080/QuizServer/api/auth/create?uid=" + userid.getText().toString()
+                    + "&pwd=" + password.getText().toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+
+                                JSONArray array = new JSONArray(response);
+                                for (int i = 0; i < array.length(); i++) {
+                                    JSONObject object = array.optJSONObject(i);
+                                    String line = object.optString("userId");
+                                    Log.i("user", line);
+
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            });
+            queue.add(stringRequest);
+
+            // Repeat this the same runnable code block again another 2 seconds
+            //handler.postDelayed(runnableCode, 2000);
+        }
+    };
+
+
 }
