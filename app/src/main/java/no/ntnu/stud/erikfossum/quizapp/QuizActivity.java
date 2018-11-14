@@ -23,6 +23,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -34,6 +36,8 @@ public class QuizActivity extends AppCompatActivity {
     private String correctAnswer;
     private String question;
     private int score = 0;
+
+    final List<Questions> questionList = new ArrayList<>();
 
 
     @Override
@@ -61,8 +65,75 @@ public class QuizActivity extends AppCompatActivity {
         final Button choice2 = (Button) findViewById(R.id.choice2);
         final Button choice3 = (Button) findViewById(R.id.choice3);
         final Button choice4 = (Button) findViewById(R.id.choice4);
+        final TextView s = (TextView) findViewById(R.id.score);
 
+        choice1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (alternative1.equals(correctAnswer)) {
+                    score = score + 10;
+                    s.setText(""+score);
+                    Toast toast = Toast.makeText(QuizActivity.this, "The answer is correct", Toast.LENGTH_SHORT);
+                    toast.show();
+                    updateQuestions();
+                } else {
+                    Toast toast = Toast.makeText(QuizActivity.this, "The answer is incorrect", Toast.LENGTH_SHORT);
+                    toast.show();
+                    updateQuestions();
+                }
+            }
+        });
 
+        choice2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (alternative2.equals(correctAnswer)) {
+                    score = score + 10;
+                    s.setText(""+score);
+                    Toast toast = Toast.makeText(QuizActivity.this, "The answer is correct", Toast.LENGTH_SHORT);
+                    toast.show();
+                    updateQuestions();
+                } else {
+                    Toast toast = Toast.makeText(QuizActivity.this, "The answer is incorrect", Toast.LENGTH_SHORT);
+                    toast.show();
+                    updateQuestions();
+                }
+            }
+        });
+
+        choice3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(alternative3.equals(correctAnswer)){
+                    score = score + 10;
+                    s.setText(""+score);
+                    Toast toast = Toast.makeText(QuizActivity.this,"The answer is correct",Toast.LENGTH_SHORT);
+                    toast.show();
+                    updateQuestions();
+                } else {
+                    Toast toast = Toast.makeText(QuizActivity.this,"The answer is incorrect",Toast.LENGTH_SHORT);
+                    toast.show();
+                    updateQuestions();
+                }
+            }
+        });
+
+        choice4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(alternative4.equals(correctAnswer)){
+                    score = score + 10;
+                    s.setText(""+score);
+                    Toast toast = Toast.makeText(QuizActivity.this,"The answer is correct",Toast.LENGTH_SHORT);
+                    toast.show();
+                    updateQuestions();
+                } else {
+                    Toast toast = Toast.makeText(QuizActivity.this,"The answer is incorrect",Toast.LENGTH_SHORT);
+                    toast.show();
+                    updateQuestions();
+                }
+            }
+        });
     }
 
     Handler handler = new Handler();
@@ -90,7 +161,9 @@ public class QuizActivity extends AppCompatActivity {
                                     alternative4 = object.optString("alternative4");
                                     correctAnswer = object.optString("correctAnswer");
                                     question = object.optString("question");
-
+                                    Questions q = new Questions(alternative1, alternative2, alternative3,
+                                            alternative4, correctAnswer, question);
+                                    questionList.add(q);
                                 }
 
 
@@ -117,11 +190,11 @@ public class QuizActivity extends AppCompatActivity {
         final Button choice4 = (Button) findViewById(R.id.choice4);
         final TextView q = (TextView) findViewById(R.id.question);
 
-        choice1.setText(alternative1);
-        choice2.setText(alternative2);
-        choice3.setText(alternative3);
-        choice4.setText(alternative4);
-        q.setText(question);
+        choice1.setText(questionList.get(0).getAlternative1());
+        choice2.setText(questionList.get(0).getAlternative2());
+        choice3.setText(questionList.get(0).getAlternative3());
+        choice4.setText(questionList.get(0).getAlternative4());
+        q.setText(questionList.get(0).getQuestion());
     }
 
     public void changeVisibillity() {
@@ -139,83 +212,6 @@ public class QuizActivity extends AppCompatActivity {
         q.setVisibility(View.VISIBLE);
     }
 
-    public void checkIfButtonsClicked() {
-        final Button choice1 = (Button) findViewById(R.id.choice1);
-        final Button choice2 = (Button) findViewById(R.id.choice2);
-        final Button choice3 = (Button) findViewById(R.id.choice3);
-        final Button choice4 = (Button) findViewById(R.id.choice4);
-        final TextView s = (TextView) findViewById(R.id.score);
 
-        choice1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (alternative1.equals(correctAnswer)) {
-                    score = score + 10;
-                    s.setText(score);
-                    Toast toast = Toast.makeText(QuizActivity.this, "The answer is correct", Toast.LENGTH_LONG);
-                    toast.show();
-                    updateQuestions();
-                } else {
-                    Toast toast = Toast.makeText(QuizActivity.this, "The answer is incorrect", Toast.LENGTH_LONG);
-                    toast.show();
-                    updateQuestions();
-
-                }
-            }
-        });
-
-
-        choice2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (alternative2.equals(correctAnswer)) {
-                    score = score + 10;
-                    s.setText(score);
-                    Toast toast = Toast.makeText(QuizActivity.this, "The answer is correct", Toast.LENGTH_LONG);
-                    toast.show();
-                    updateQuestions();
-                } else {
-                    Toast toast = Toast.makeText(QuizActivity.this, "The answer is incorrect", Toast.LENGTH_LONG);
-                    toast.show();
-                    updateQuestions();
-
-                }
-            }
-        });
-        choice3.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                if(alternative2.equals(correctAnswer)){
-                    score = score + 10;
-                    s.setText(score);
-                    Toast toast = Toast.makeText(QuizActivity.this,"The answer is correct",Toast.LENGTH_LONG);
-                    toast.show();
-                    updateQuestions();
-                } else {
-                    Toast toast = Toast.makeText(QuizActivity.this,"The answer is incorrect",Toast.LENGTH_LONG);
-                    toast.show();
-                    updateQuestions();
-
-                }
-            }
-        });
-        choice4.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                if(alternative4.equals(correctAnswer)){
-                    score = score + 10;
-                    s.setText(score);
-                    Toast toast = Toast.makeText(QuizActivity.this,"The answer is correct",Toast.LENGTH_LONG);
-                    toast.show();
-                    updateQuestions();
-                } else {
-                    Toast toast = Toast.makeText(QuizActivity.this,"The answer is incorrect",Toast.LENGTH_LONG);
-                    toast.show();
-                    updateQuestions();
-
-                }
-            }
-        });
-    }
 }
 
