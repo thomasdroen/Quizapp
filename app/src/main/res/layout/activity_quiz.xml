@@ -14,66 +14,78 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:padding="8dp"
-        android:layout_marginBottom="40dp">
+        android:visibility="visible">
 
         <TextView
+            android:id="@+id/score_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Score"
-            android:textSize="20sp"
             android:layout_alignParentLeft="true"
-            android:id="@+id/score_text"/>
+            android:text="Score"
+            android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/score"
             android:layout_alignParentRight="true"
             android:text="0"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:visibility="visible" />
+
     <TextView
+        android:id="@+id/question"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:layout_marginBottom="40dp"
+        android:padding="8dp"
         android:text="Which thing is alive?"
         android:textSize="20sp"
-        android:padding="8dp"
-        android:layout_marginBottom="40dp"
-        android:id="@+id/question"/>
+        android:visibility="invisible" />
 
 
     <Button
+        android:id="@+id/choice1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="#0091EA"
+        android:padding="8dp"
         android:text="bird"
-        android:background="#0091EA"
         android:textColor="#fff"
-        android:padding="8dp"
-        android:layout_marginBottom="24dp"
-        android:id="@+id/choice1"/>
+        android:visibility="invisible" />
 
     <Button
+        android:id="@+id/choice2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="#0091EA"
+        android:padding="8dp"
         android:text="door"
-        android:background="#0091EA"
         android:textColor="#fff"
-        android:padding="8dp"
-        android:layout_marginBottom="24dp"
-        android:id="@+id/choice2"/>
+        android:visibility="invisible" />
 
     <Button
+        android:id="@+id/choice3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="rock"
-        android:background="#0091EA"
-        android:textColor="#fff"
-        android:padding="8dp"
         android:layout_marginBottom="24dp"
-        android:id="@+id/choice3"/>
+        android:background="#0091EA"
+        android:padding="8dp"
+        android:text="rock"
+        android:textColor="#fff"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/choice4"
@@ -83,6 +95,7 @@
         android:background="#0091EA"
         android:padding="8dp"
         android:text="quit"
-        android:textColor="#fff" />
+        android:textColor="#fff"
+        android:visibility="invisible" />
 
 </LinearLayout>

@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,7 +31,9 @@ public class QuizActivity extends AppCompatActivity {
     private String alternative2;
     private String alternative3;
     private String alternative4;
+    private String correctAnswer;
     private String question;
+    private int score = 0;
 
 
     @Override
@@ -41,7 +45,24 @@ public class QuizActivity extends AppCompatActivity {
         category = i.getStringExtra("category");
 
         handler.post(runnableCode);
-        updateQuestions();
+        Button startButton = (Button) findViewById(R.id.startButton);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                updateQuestions();
+                changeVisibillity();
+
+            }
+        });
+
+
+        final Button choice1 = (Button) findViewById(R.id.choice1);
+        final Button choice2 = (Button) findViewById(R.id.choice2);
+        final Button choice3 = (Button) findViewById(R.id.choice3);
+        final Button choice4 = (Button) findViewById(R.id.choice4);
+
+
     }
 
     Handler handler = new Handler();
@@ -49,10 +70,10 @@ public class QuizActivity extends AppCompatActivity {
     private Runnable runnableCode = new Runnable() {
         @Override
         public void run() {
-            if(queue == null){
+            if (queue == null) {
                 queue = Volley.newRequestQueue(QuizActivity.this);
             }
-            String url ="http://10.0.2.2:8080/QuizServer/api/quiz/getQuestions?category=" + category;
+            String url = "http://10.0.2.2:8080/QuizServer/api/quiz/getQuestions?category=" + category;
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                     new Response.Listener<String>() {
@@ -66,7 +87,8 @@ public class QuizActivity extends AppCompatActivity {
                                     alternative1 = object.optString("alternative1");
                                     alternative2 = object.optString("alternative2");
                                     alternative3 = object.optString("alternative3");
-                                    alternative4 = object.optString("correctanwser");
+                                    alternative4 = object.optString("alternative4");
+                                    correctAnswer = object.optString("correctAnswer");
                                     question = object.optString("question");
 
                                 }
@@ -88,7 +110,7 @@ public class QuizActivity extends AppCompatActivity {
         }
     };
 
-    public void updateQuestions(){
+    public void updateQuestions() {
         final Button choice1 = (Button) findViewById(R.id.choice1);
         final Button choice2 = (Button) findViewById(R.id.choice2);
         final Button choice3 = (Button) findViewById(R.id.choice3);
@@ -102,5 +124,98 @@ public class QuizActivity extends AppCompatActivity {
         q.setText(question);
     }
 
+    public void changeVisibillity() {
+        Button startButton = (Button) findViewById(R.id.startButton);
+        final Button choice1 = (Button) findViewById(R.id.choice1);
+        final Button choice2 = (Button) findViewById(R.id.choice2);
+        final Button choice3 = (Button) findViewById(R.id.choice3);
+        final Button choice4 = (Button) findViewById(R.id.choice4);
+        final TextView q = (TextView) findViewById(R.id.question);
+        startButton.setVisibility(View.GONE);
+        choice1.setVisibility(View.VISIBLE);
+        choice2.setVisibility(View.VISIBLE);
+        choice3.setVisibility(View.VISIBLE);
+        choice4.setVisibility(View.VISIBLE);
+        q.setVisibility(View.VISIBLE);
+    }
+
+    public void checkIfButtonsClicked() {
+        final Button choice1 = (Button) findViewById(R.id.choice1);
+        final Button choice2 = (Button) findViewById(R.id.choice2);
+        final Button choice3 = (Button) findViewById(R.id.choice3);
+        final Button choice4 = (Button) findViewById(R.id.choice4);
+        final TextView s = (TextView) findViewById(R.id.score);
+
+        choice1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (alternative1.equals(correctAnswer)) {
+                    score = score + 10;
+                    s.setText(score);
+                    Toast toast = Toast.makeText(QuizActivity.this, "The answer is correct", Toast.LENGTH_LONG);
+                    toast.show();
+                    updateQuestions();
+                } else {
+                    Toast toast = Toast.makeText(QuizActivity.this, "The answer is incorrect", Toast.LENGTH_LONG);
+                    toast.show();
+                    updateQuestions();
+
+                }
+            }
+        });
+
+
+        choice2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (alternative2.equals(correctAnswer)) {
+                    score = score + 10;
+                    s.setText(score);
+                    Toast toast = Toast.makeText(QuizActivity.this, "The answer is correct", Toast.LENGTH_LONG);
+                    toast.show();
+                    updateQuestions();
+                } else {
+                    Toast toast = Toast.makeText(QuizActivity.this, "The answer is incorrect", Toast.LENGTH_LONG);
+                    toast.show();
+                    updateQuestions();
+
+                }
+            }
+        });
+        choice3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(alternative2.equals(correctAnswer)){
+                    score = score + 10;
+                    s.setText(score);
+                    Toast toast = Toast.makeText(QuizActivity.this,"The answer is correct",Toast.LENGTH_LONG);
+                    toast.show();
+                    updateQuestions();
+                } else {
+                    Toast toast = Toast.makeText(QuizActivity.this,"The answer is incorrect",Toast.LENGTH_LONG);
+                    toast.show();
+                    updateQuestions();
+
+                }
+            }
+        });
+        choice4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(alternative4.equals(correctAnswer)){
+                    score = score + 10;
+                    s.setText(score);
+                    Toast toast = Toast.makeText(QuizActivity.this,"The answer is correct",Toast.LENGTH_LONG);
+                    toast.show();
+                    updateQuestions();
+                } else {
+                    Toast toast = Toast.makeText(QuizActivity.this,"The answer is incorrect",Toast.LENGTH_LONG);
+                    toast.show();
+                    updateQuestions();
+
+                }
+            }
+        });
+    }
 }
 
