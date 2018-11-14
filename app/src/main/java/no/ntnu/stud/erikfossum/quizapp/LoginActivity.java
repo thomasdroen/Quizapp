@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(LoginActivity.this, QuizActivity.class));;
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
             }
         });
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));;
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
 
             }
         });

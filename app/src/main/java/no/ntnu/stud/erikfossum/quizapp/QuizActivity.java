@@ -36,6 +36,7 @@ public class QuizActivity extends AppCompatActivity {
     private String correctAnswer;
     private String question;
     private int score = 0;
+    private int currentQuestion = 0;
 
     final List<Questions> questionList = new ArrayList<>();
 
@@ -54,7 +55,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                updateQuestions();
+                updateQuestions(currentQuestion);
                 changeVisibillity();
 
             }
@@ -70,16 +71,27 @@ public class QuizActivity extends AppCompatActivity {
         choice1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (alternative1.equals(correctAnswer)) {
+                if (questionList.get(currentQuestion).getAlternative1()
+                        .equals(questionList.get(currentQuestion).getCorrectAnswer())) {
                     score = score + 10;
                     s.setText(""+score);
                     Toast toast = Toast.makeText(QuizActivity.this, "The answer is correct", Toast.LENGTH_SHORT);
                     toast.show();
-                    updateQuestions();
+                    currentQuestion = currentQuestion + 1;
+                    if(currentQuestion < questionList.size()) {
+                        updateQuestions(currentQuestion);
+                    }else {
+                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                    }
                 } else {
                     Toast toast = Toast.makeText(QuizActivity.this, "The answer is incorrect", Toast.LENGTH_SHORT);
                     toast.show();
-                    updateQuestions();
+                    currentQuestion = currentQuestion + 1;
+                    if(currentQuestion < questionList.size()) {
+                        updateQuestions(currentQuestion);
+                    }else {
+                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                    }
                 }
             }
         });
@@ -87,16 +99,27 @@ public class QuizActivity extends AppCompatActivity {
         choice2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (alternative2.equals(correctAnswer)) {
+                if (questionList.get(currentQuestion).getAlternative2()
+                        .equals(questionList.get(currentQuestion).getCorrectAnswer())) {
                     score = score + 10;
                     s.setText(""+score);
                     Toast toast = Toast.makeText(QuizActivity.this, "The answer is correct", Toast.LENGTH_SHORT);
                     toast.show();
-                    updateQuestions();
+                    currentQuestion = currentQuestion + 1;
+                    if(currentQuestion < questionList.size()) {
+                        updateQuestions(currentQuestion);
+                    }else {
+                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                    }
                 } else {
                     Toast toast = Toast.makeText(QuizActivity.this, "The answer is incorrect", Toast.LENGTH_SHORT);
                     toast.show();
-                    updateQuestions();
+                    currentQuestion = currentQuestion + 1;
+                    if(currentQuestion < questionList.size()) {
+                        updateQuestions(currentQuestion);
+                    }else {
+                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                    }
                 }
             }
         });
@@ -104,16 +127,27 @@ public class QuizActivity extends AppCompatActivity {
         choice3.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(alternative3.equals(correctAnswer)){
+                if(questionList.get(currentQuestion).getAlternative3()
+                        .equals(questionList.get(currentQuestion).getCorrectAnswer())){
                     score = score + 10;
                     s.setText(""+score);
                     Toast toast = Toast.makeText(QuizActivity.this,"The answer is correct",Toast.LENGTH_SHORT);
                     toast.show();
-                    updateQuestions();
+                    currentQuestion = currentQuestion + 1;
+                    if(currentQuestion < questionList.size()) {
+                        updateQuestions(currentQuestion);
+                    }else {
+                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                    }
                 } else {
                     Toast toast = Toast.makeText(QuizActivity.this,"The answer is incorrect",Toast.LENGTH_SHORT);
                     toast.show();
-                    updateQuestions();
+                    currentQuestion = currentQuestion + 1;
+                    if(currentQuestion < questionList.size()) {
+                        updateQuestions(currentQuestion);
+                    }else {
+                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                    }
                 }
             }
         });
@@ -121,16 +155,27 @@ public class QuizActivity extends AppCompatActivity {
         choice4.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(alternative4.equals(correctAnswer)){
+                if(questionList.get(currentQuestion).getAlternative4()
+                        .equals(questionList.get(currentQuestion).getCorrectAnswer())){
                     score = score + 10;
                     s.setText(""+score);
                     Toast toast = Toast.makeText(QuizActivity.this,"The answer is correct",Toast.LENGTH_SHORT);
                     toast.show();
-                    updateQuestions();
+                    currentQuestion = currentQuestion + 1;
+                    if(currentQuestion < questionList.size()) {
+                        updateQuestions(currentQuestion);
+                    }else {
+                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                    }
                 } else {
                     Toast toast = Toast.makeText(QuizActivity.this,"The answer is incorrect",Toast.LENGTH_SHORT);
                     toast.show();
-                    updateQuestions();
+                    currentQuestion = currentQuestion + 1;
+                    if(currentQuestion < questionList.size()) {
+                        updateQuestions(currentQuestion);
+                    }else {
+                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                    }
                 }
             }
         });
@@ -183,18 +228,18 @@ public class QuizActivity extends AppCompatActivity {
         }
     };
 
-    public void updateQuestions() {
+    public void updateQuestions(int i) {
         final Button choice1 = (Button) findViewById(R.id.choice1);
         final Button choice2 = (Button) findViewById(R.id.choice2);
         final Button choice3 = (Button) findViewById(R.id.choice3);
         final Button choice4 = (Button) findViewById(R.id.choice4);
         final TextView q = (TextView) findViewById(R.id.question);
 
-        choice1.setText(questionList.get(0).getAlternative1());
-        choice2.setText(questionList.get(0).getAlternative2());
-        choice3.setText(questionList.get(0).getAlternative3());
-        choice4.setText(questionList.get(0).getAlternative4());
-        q.setText(questionList.get(0).getQuestion());
+        choice1.setText(questionList.get(i).getAlternative1());
+        choice2.setText(questionList.get(i).getAlternative2());
+        choice3.setText(questionList.get(i).getAlternative3());
+        choice4.setText(questionList.get(i).getAlternative4());
+        q.setText(questionList.get(i).getQuestion());
     }
 
     public void changeVisibillity() {
