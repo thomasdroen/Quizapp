@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -64,6 +65,7 @@ public class MainActivity extends Activity {
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject object = array.optJSONObject(i);
                                     String line = object.optString("categoryName");
+                                    Log.i("MSG" , line);
                                     input.add(line);
                                 }
 
