@@ -297,6 +297,9 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
+    /*
+    **changes the visibility of the buttons when you start the quiz
+     */
     public void changeVisibillity() {
         Button startButton = (Button) findViewById(R.id.startButton);
         final Button choice1 = (Button) findViewById(R.id.choice1);
