@@ -36,6 +36,14 @@
 
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"
+        android:progress="0"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/startButton"
         android:layout_width="match_parent"

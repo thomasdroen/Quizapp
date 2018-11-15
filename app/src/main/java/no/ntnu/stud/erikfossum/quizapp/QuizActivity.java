@@ -2,12 +2,15 @@ package no.ntnu.stud.erikfossum.quizapp;
 
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +40,9 @@ public class QuizActivity extends AppCompatActivity {
     private String question;
     private int score = 0;
     private int currentQuestion = 0;
+    ProgressBar mProgressBar;
+    CountDownTimer mCountDownTimer;
+    int in=0;
 
     final List<Questions> questionList = new ArrayList<>();
 
@@ -57,9 +63,41 @@ public class QuizActivity extends AppCompatActivity {
 
                 updateQuestions(currentQuestion);
                 changeVisibillity();
-
+                mCountDownTimer.start();
+                mCountDownTimer.cancel();
+                in=0;
+                mProgressBar.setProgress(0);
+                mCountDownTimer.start();
             }
         });
+
+
+
+        mProgressBar=(ProgressBar)findViewById(R.id.progressBar);
+        mProgressBar.setProgress(in);
+        mCountDownTimer=new CountDownTimer(10000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                Log.v("Log_tag", "Tick of Progress"+ in+ millisUntilFinished);
+                in++;
+                mProgressBar.setProgress((int)in*100/(10000/1000));
+            }
+            @Override
+            public void onFinish() {
+                //Do what you want
+                in++;
+                mProgressBar.setProgress(0);
+                currentQuestion = currentQuestion+1;
+                if(currentQuestion < questionList.size()) {
+                    mCountDownTimer.cancel();
+                    updateQuestions(currentQuestion);
+                }else {
+                    changeVisibilityAfterQuiz();
+                    mCountDownTimer.cancel();
+                }
+            }
+        };
+
 
 
         final Button choice1 = (Button) findViewById(R.id.choice1);
@@ -79,20 +117,22 @@ public class QuizActivity extends AppCompatActivity {
                     toast.show();
                     currentQuestion = currentQuestion + 1;
                     if(currentQuestion < questionList.size()) {
+                        mCountDownTimer.cancel();
                         updateQuestions(currentQuestion);
                     }else {
-                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
                         changeVisibilityAfterQuiz();
+                        mCountDownTimer.cancel();
                     }
                 } else {
                     Toast toast = Toast.makeText(QuizActivity.this, "The answer is incorrect", Toast.LENGTH_SHORT);
                     toast.show();
                     currentQuestion = currentQuestion + 1;
                     if(currentQuestion < questionList.size()) {
+                        mCountDownTimer.cancel();
                         updateQuestions(currentQuestion);
                     }else {
-                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
                         changeVisibilityAfterQuiz();
+                        mCountDownTimer.cancel();
                     }
                 }
             }
@@ -109,20 +149,22 @@ public class QuizActivity extends AppCompatActivity {
                     toast.show();
                     currentQuestion = currentQuestion + 1;
                     if(currentQuestion < questionList.size()) {
+                        mCountDownTimer.cancel();
                         updateQuestions(currentQuestion);
                     }else {
-                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
                         changeVisibilityAfterQuiz();
+                        mCountDownTimer.cancel();
                     }
                 } else {
                     Toast toast = Toast.makeText(QuizActivity.this, "The answer is incorrect", Toast.LENGTH_SHORT);
                     toast.show();
                     currentQuestion = currentQuestion + 1;
                     if(currentQuestion < questionList.size()) {
+                        mCountDownTimer.cancel();
                         updateQuestions(currentQuestion);
                     }else {
-                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
                         changeVisibilityAfterQuiz();
+                        mCountDownTimer.cancel();
                     }
                 }
             }
@@ -139,20 +181,22 @@ public class QuizActivity extends AppCompatActivity {
                     toast.show();
                     currentQuestion = currentQuestion + 1;
                     if(currentQuestion < questionList.size()) {
+                        mCountDownTimer.cancel();
                         updateQuestions(currentQuestion);
                     }else {
-                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
                         changeVisibilityAfterQuiz();
+                        mCountDownTimer.cancel();
                     }
                 } else {
                     Toast toast = Toast.makeText(QuizActivity.this,"The answer is incorrect",Toast.LENGTH_SHORT);
                     toast.show();
                     currentQuestion = currentQuestion + 1;
                     if(currentQuestion < questionList.size()) {
+                        mCountDownTimer.cancel();
                         updateQuestions(currentQuestion);
                     }else {
-                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
                         changeVisibilityAfterQuiz();
+                        mCountDownTimer.cancel();
                     }
                 }
             }
@@ -169,20 +213,22 @@ public class QuizActivity extends AppCompatActivity {
                     toast.show();
                     currentQuestion = currentQuestion + 1;
                     if(currentQuestion < questionList.size()) {
+                        mCountDownTimer.cancel();
                         updateQuestions(currentQuestion);
                     }else {
-                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
                         changeVisibilityAfterQuiz();
+                        mCountDownTimer.cancel();
                     }
                 } else {
                     Toast toast = Toast.makeText(QuizActivity.this,"The answer is incorrect",Toast.LENGTH_SHORT);
                     toast.show();
                     currentQuestion = currentQuestion + 1;
                     if(currentQuestion < questionList.size()) {
+                        mCountDownTimer.cancel();
                         updateQuestions(currentQuestion);
                     }else {
-                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
                         changeVisibilityAfterQuiz();
+                        mCountDownTimer.cancel();
                     }
                 }
             }
@@ -248,6 +294,10 @@ public class QuizActivity extends AppCompatActivity {
         choice3.setText(questionList.get(i).getAlternative3());
         choice4.setText(questionList.get(i).getAlternative4());
         q.setText(questionList.get(i).getQuestion());
+        in=0;
+        mProgressBar.setProgress(0);
+        mCountDownTimer.start();
+
     }
 
     public void changeVisibillity() {
@@ -282,8 +332,8 @@ public class QuizActivity extends AppCompatActivity {
         currentQuestion = 0;
         score = 0;
         s.setText("" + score);
+        mProgressBar.setProgress(0);
     }
-
 
 }
 
