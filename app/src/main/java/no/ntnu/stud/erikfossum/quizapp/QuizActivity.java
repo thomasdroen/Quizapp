@@ -81,7 +81,8 @@ public class QuizActivity extends AppCompatActivity {
                     if(currentQuestion < questionList.size()) {
                         updateQuestions(currentQuestion);
                     }else {
-                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        changeVisibilityAfterQuiz();
                     }
                 } else {
                     Toast toast = Toast.makeText(QuizActivity.this, "The answer is incorrect", Toast.LENGTH_SHORT);
@@ -90,7 +91,8 @@ public class QuizActivity extends AppCompatActivity {
                     if(currentQuestion < questionList.size()) {
                         updateQuestions(currentQuestion);
                     }else {
-                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        changeVisibilityAfterQuiz();
                     }
                 }
             }
@@ -109,7 +111,8 @@ public class QuizActivity extends AppCompatActivity {
                     if(currentQuestion < questionList.size()) {
                         updateQuestions(currentQuestion);
                     }else {
-                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        changeVisibilityAfterQuiz();
                     }
                 } else {
                     Toast toast = Toast.makeText(QuizActivity.this, "The answer is incorrect", Toast.LENGTH_SHORT);
@@ -118,7 +121,8 @@ public class QuizActivity extends AppCompatActivity {
                     if(currentQuestion < questionList.size()) {
                         updateQuestions(currentQuestion);
                     }else {
-                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        changeVisibilityAfterQuiz();
                     }
                 }
             }
@@ -137,7 +141,8 @@ public class QuizActivity extends AppCompatActivity {
                     if(currentQuestion < questionList.size()) {
                         updateQuestions(currentQuestion);
                     }else {
-                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        changeVisibilityAfterQuiz();
                     }
                 } else {
                     Toast toast = Toast.makeText(QuizActivity.this,"The answer is incorrect",Toast.LENGTH_SHORT);
@@ -146,7 +151,8 @@ public class QuizActivity extends AppCompatActivity {
                     if(currentQuestion < questionList.size()) {
                         updateQuestions(currentQuestion);
                     }else {
-                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        changeVisibilityAfterQuiz();
                     }
                 }
             }
@@ -165,7 +171,8 @@ public class QuizActivity extends AppCompatActivity {
                     if(currentQuestion < questionList.size()) {
                         updateQuestions(currentQuestion);
                     }else {
-                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        changeVisibilityAfterQuiz();
                     }
                 } else {
                     Toast toast = Toast.makeText(QuizActivity.this,"The answer is incorrect",Toast.LENGTH_SHORT);
@@ -174,7 +181,8 @@ public class QuizActivity extends AppCompatActivity {
                     if(currentQuestion < questionList.size()) {
                         updateQuestions(currentQuestion);
                     }else {
-                        startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        //startActivity(new Intent(QuizActivity.this, MainActivity.class));
+                        changeVisibilityAfterQuiz();
                     }
                 }
             }
@@ -255,6 +263,25 @@ public class QuizActivity extends AppCompatActivity {
         choice3.setVisibility(View.VISIBLE);
         choice4.setVisibility(View.VISIBLE);
         q.setVisibility(View.VISIBLE);
+    }
+
+    public void changeVisibilityAfterQuiz(){
+        Button startButton = (Button) findViewById(R.id.startButton);
+        final Button choice1 = (Button) findViewById(R.id.choice1);
+        final Button choice2 = (Button) findViewById(R.id.choice2);
+        final Button choice3 = (Button) findViewById(R.id.choice3);
+        final Button choice4 = (Button) findViewById(R.id.choice4);
+        final TextView q = (TextView) findViewById(R.id.question);
+        final TextView s = (TextView) findViewById(R.id.score);
+        startButton.setVisibility(View.VISIBLE);
+        choice1.setVisibility(View.GONE);
+        choice2.setVisibility(View.GONE);
+        choice3.setVisibility(View.GONE);
+        choice4.setVisibility(View.GONE);
+        q.setText("Your final score: " + score + "/" + (questionList.size()*10));
+        currentQuestion = 0;
+        score = 0;
+        s.setText("" + score);
     }
 
 
