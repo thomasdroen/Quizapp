@@ -2,8 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dip"
-    android:background="#4FC3F7">
+    android:padding="6dp"
+    android:width="1dp"
+    android:color="#6D4C41"
+    android:bottomLeftRadius="0dp"
+    android:topLeftRadius="5dp"
+    android:bottomRightRadius="5dp"
+    android:topRightRadius="0dp"
+    android:startColor="@android:color/transparent"
+    android:endColor="@android:color/transparent"
+    android:angle="90"
+
+
+    >
 
 
     <TextView
@@ -34,6 +45,8 @@
         android:text="Example application"
         android:textSize="20sp"
         android:fontFamily="sans-serif-smallcaps"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        />
 
 </RelativeLayout>
+
