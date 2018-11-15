@@ -276,9 +276,6 @@ public class QuizActivity extends AppCompatActivity {
                 }
             });
             queue.add(stringRequest);
-
-            // Repeat this the same runnable code block again another 2 seconds
-            //handler.postDelayed(runnableCode, 2000);
         }
     };
 
