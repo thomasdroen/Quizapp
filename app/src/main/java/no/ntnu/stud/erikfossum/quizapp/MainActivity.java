@@ -36,9 +36,6 @@ public class MainActivity extends Activity {
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        /*for (int i = 0; i < 100; i++) {
-            input.add("Test" + i);
-        }// define an adapter*/
         mAdapter = new MainAdapter(input);
         recyclerView.setAdapter(mAdapter);
         SharedPreferences mPrefs = getSharedPreferences("dataStorage", MODE_PRIVATE);
@@ -80,9 +77,6 @@ public class MainActivity extends Activity {
                 }
             });
             queue.add(stringRequest);
-
-            // Repeat this the same runnable code block again another 2 seconds
-            //handler.postDelayed(runnableCode, 2000);
         }
     };
 }
