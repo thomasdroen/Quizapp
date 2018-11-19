@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,7 +27,7 @@ public class MainActivity extends Activity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     List<String> input = new ArrayList<>();
-
+    private String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +41,8 @@ public class MainActivity extends Activity {
         }// define an adapter*/
         mAdapter = new MainAdapter(input);
         recyclerView.setAdapter(mAdapter);
-
-
-
+        SharedPreferences mPrefs = getSharedPreferences("dataStorage", MODE_PRIVATE);
+        username = mPrefs.getString("username", "");
     }
 
     Handler handler = new Handler();

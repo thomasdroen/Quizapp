@@ -2,6 +2,7 @@ package no.ntnu.stud.erikfossum.quizapp;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +44,7 @@ public class QuizActivity extends AppCompatActivity {
     ProgressBar mProgressBar;
     CountDownTimer mCountDownTimer;
     int in=0;
+    private String username;
 
     final List<Questions> questionList = new ArrayList<>();
 
@@ -54,6 +56,8 @@ public class QuizActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         category = i.getStringExtra("category");
+        SharedPreferences mPrefs = getSharedPreferences("dataStorage", MODE_PRIVATE);
+        username = mPrefs.getString("username", "");
 
         handler.post(runnableCode);
         Button startButton = (Button) findViewById(R.id.startButton);
