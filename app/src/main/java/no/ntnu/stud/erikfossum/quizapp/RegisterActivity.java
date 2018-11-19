@@ -1,6 +1,7 @@
 package no.ntnu.stud.erikfossum.quizapp;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,9 +41,15 @@ public class RegisterActivity extends AppCompatActivity {
 
                 final EditText password = (EditText) findViewById(R.id.newPassword);
                 final EditText password2 = (EditText) findViewById(R.id.confirmNewPassword);
+                final EditText userid = (EditText) findViewById(R.id.usernameID);
                 if (password.getText().toString().equals(password2.getText().toString())){
 
-                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));;
+                    handler.post(runnableCode);
+                    Toast toast = Toast.makeText(RegisterActivity.this,"User "
+                            + userid.getText().toString() + " was created",Toast.LENGTH_LONG);
+                    toast.show();
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+
                 }else {
                     Toast toast = Toast.makeText(RegisterActivity.this,"The passwords do not correspond",Toast.LENGTH_LONG);
                     toast.show();
@@ -51,5 +58,49 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    Handler handler = new Handler();
+    private RequestQueue queue;
+    private Runnable runnableCode = new Runnable() {
+        @Override
+        public void run() {
+            if(queue == null){
+                queue = Volley.newRequestQueue(RegisterActivity.this);
+            }
+            final EditText password = (EditText) findViewById(R.id.newPassword);
+            final EditText userid = (EditText) findViewById(R.id.usernameID);
+
+            String url ="http://10.0.2.2:8080/QuizServer/api/auth/create?uid=" + userid.getText().toString()
+                    + "&pwd=" + password.getText().toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+
+                                JSONArray array = new JSONArray(response);
+                                for (int i = 0; i < array.length(); i++) {
+                                    JSONObject object = array.optJSONObject(i);
+                                    String line = object.optString("userId");
+                                    Log.i("user", line);
+
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            });
+            queue.add(stringRequest);
+
+            // Repeat this the same runnable code block again another 2 seconds
+            //handler.postDelayed(runnableCode, 2000);
+        }
+    };
 
 }
