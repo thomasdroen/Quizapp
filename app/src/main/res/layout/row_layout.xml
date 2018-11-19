@@ -2,25 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dp"
-    android:width="1dp"
-    android:color="#6D4C41"
-    android:bottomLeftRadius="0dp"
-    android:topLeftRadius="5dp"
-    android:bottomRightRadius="5dp"
-    android:topRightRadius="0dp"
-    android:startColor="@android:color/transparent"
-    android:endColor="@android:color/transparent"
-    android:angle="90"
-
+    android:background="@drawable/background"
 
     >
 
 
     <TextView
         android:id="@+id/secondLine"
-        android:layout_width="378dp"
-        android:layout_height="26dip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="0dp"
@@ -34,7 +24,7 @@
 
     <TextView
         android:id="@+id/firstLine"
-        android:layout_width="378dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/secondLine"
         android:layout_alignParentRight="true"
