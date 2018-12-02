@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:text="Score"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/score"
@@ -35,8 +36,24 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="0"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/highscore_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="High Score"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/highscore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="0"
+            android:textSize="20sp" />
 
 
     </RelativeLayout>
@@ -110,7 +127,6 @@
         android:text="quit"
         android:textColor="#fff"
         android:visibility="invisible" />
-
 
 
 

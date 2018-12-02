@@ -8,35 +8,18 @@
 
 
     <TextView
-        android:id="@+id/secondLine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="0dp"
-        android:ellipsize="marquee"
-        android:gravity="center"
-        android:text="Description"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:textStyle="bold"/>
-
-
-    <TextView
         android:id="@+id/firstLine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/secondLine"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
         android:layout_marginRight="0dp"
+        android:fontFamily="sans-serif-smallcaps"
         android:gravity="center"
         android:text="Example application"
         android:textSize="20sp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
 
 </RelativeLayout>
 

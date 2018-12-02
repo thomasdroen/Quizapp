@@ -23,14 +23,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView txtHeader;
-        public TextView txtFooter;
+        //public TextView txtFooter;
         public View layout;
 
         public ViewHolder(View v) {
             super(v);
             layout = v;
             txtHeader = (TextView) v.findViewById(R.id.firstLine);
-            txtFooter = (TextView) v.findViewById(R.id.secondLine);
+            //txtFooter = (TextView) v.findViewById(R.id.secondLine);
         }
     }
 
@@ -80,7 +80,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             }
         });
 
-        holder.txtFooter.setText("Footer: " + name);
+        //holder.txtFooter.setText("Footer: " + name);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
