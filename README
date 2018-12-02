@@ -1,0 +1,16 @@
+Quizapp is an appelication where you can test your knowledge to different categories.
+
+Loginactivity is the class where the user can log into the appelication, but only if they have a registerd account first. With methods for authentication and authorisation. 
+
+Register activity is where they can register an account.  With methods for authentication and authorisation. 
+
+Main activity is the category selection site. The categories are stored in the database and the categories are printed into a recycler view. 
+
+Questions are a class who includes getters and setters for the different alternatives, correct answer and the questions.
+
+Quiz activity is the class where the quiz itself happens. It corresponds with the category the user clicked on in the previous activity, Main activity, and get the questions who for the category that the user clicked on.
+The questions and possible answers are stored in the database. It also includes a score who gives the user 10 points for each correct answer. When the user clicks on a category the first thing he will se is
+a Start button, who starts the quiz and a highscore for the selected category. After the user has clicked on start a progress bar, the question, possible answers and the current score for the user will appear.
+The user have 10 seconds to answer the questions, if he has not answerd the question by that time, the progress bar will have reached his maximum and it will go to the next questions without any points given 
+to the user. If the answer is correct/incorrect it will appear a "toast" who say to them if the answer was correct or incorrect. When the quiz is finished you will return to where the user can start the quiz for the 
+previously selected category.
